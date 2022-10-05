@@ -67,13 +67,14 @@ public class AuctionServiceImpl implements AuctionService{
         auctionDTO.getProductDTO().setProduct_img_name(product_img_name + "(0)" + numberOfImg);
         auctionDTO.getProductDTO().setFarm_id(auctionDTO.getFarm_id());
 
-        auctionMapper.registProduct(auctionDTO.getProductDTO());
+        auctionMapper.registProduct(auctionDTO.getProductDTO()); //product 테이블 product 아이디를 auction에서 외래키로 가져와서
+        //먼저 사진을 디렉토리에 저장해주고 프로덕트 객체 db 저장
         log.info("product_id: " + auctionDTO.getProductDTO().getProduct_id());
         log.info(auctionDTO.toString());
         
         // casting 오류
         BidClosingDTO bidClosingDTO = auctionMapper.registAuction(auctionDTO);
-
+        //auction에 객체 저장
         log.info(bidClosingDTO.toString());
         // 새롭게 등록된 경매의 마감일을 마감경매 타이머 리스트에 저장된 데이터의 경매 마감일들과 비교한다. 
         if (bidClosingDTO.getAuction_Id() != null) {

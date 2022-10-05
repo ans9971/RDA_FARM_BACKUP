@@ -54,11 +54,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         // .anyRequest().hasRole("USER")
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-                            UsernamePasswordAuthenticationFilter.class);
+                            UsernamePasswordAuthenticationFilter.class); 
+                            //SecurityContextHolder.getContext().setAuthentication(auth); 컨텍스트로 겨넣은 auth를 여기서 검사한다.
+
                             // jwt token 필터를 id/password 인증 필터 전에 넣는다.
         
         // 경매 마감 타이머 스레드
-        threadControl.start();
+        threadControl.start(); //스레드 컨트롤러 넘어감
     }
 
     @Override

@@ -267,6 +267,7 @@
         FROM auction
         WHERE deadline_date > NOW() AND TIMESTAMPDIFF(HOUR, NOW(), deadline_date) < 3 AND bid_status = 1
         ORDER BY TIMESTAMPDIFF(HOUR, deadline_date, NOW());
+        <!--  TIMESTAMPDIFF 의미가 deadline_date - NOW() 시간만 빼서 그걸 시간단위로 쪼개서 3시간 보다 작으면   -->
     ]]>
     </select>
 

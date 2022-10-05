@@ -23,11 +23,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     public ConsumerMemberDTO loadConsumerByEmail(String email, String token) throws UsernameNotFoundException {
 
         ConsumerMemberDTO consumerMemberDTO = null;
-        consumerMemberDTO = memberMapper.getConsumerMember(email);
+        consumerMemberDTO = memberMapper.getConsumerMember(email);// db에서 이메일 매개변수로 해서 consumer  유저정보 다 가져온다
         System.out.println(token);
         System.out.println(consumerMemberDTO.getToken());
         System.out.println(consumerMemberDTO.toString());
         if (consumerMemberDTO == null || !token.equals(consumerMemberDTO.getToken())){
+            //!token.equals(consumerMemberDTO.getToken()) -> loadConsumerByEmail(String email, String token)여기 매개변수 토큰이랑
+            //기존 db에있던 consumer 토큰이랑 비교하는 부분
             System.out.println("토큰이 같지 않음!");
             throw new UsernameNotFoundException("User not authorized.");
         }

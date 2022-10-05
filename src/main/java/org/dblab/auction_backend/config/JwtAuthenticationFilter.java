@@ -32,11 +32,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         System.out.println("token : " + token);
         try {
             if (token != null && jwtTokenProvider.validateToken(token)) {   // validateToken : Jwt 토큰의 유효성 + 만료일자 확인
+
                 Authentication auth = jwtTokenProvider.getAuthentication(token);   // getAuthentication : Jwt 토큰으로 인증 정보 조회
-                SecurityContextHolder.getContext().setAuthentication(auth);
-                httpSeveletResponse.addHeader("TOKEN", "token");
+                //Authentication이게 먼저 되있어야  시큐리티콘피규레이션에서 UsernamePasswordAuthenticationFilter.class);필터가 제대로 동작할수있다/.
+                //이게 제대로되지않아서 405에러가 뜬다.
+                SecurityContextHolder.getContext().setAuthentication(auth); //auth가져와서 
+                httpSeveletResponse.addHeader("TOKEN", "token"); //반환값에 토큰을 저장
             }
-        } catch(UsernameNotFoundException e){
+        } catch(UsernameNotFoundException e){ //
             System.out.println("UsernameNotFoundException 발생");
             httpSeveletResponse.addHeader("TOKEN", "not exist token");
             filterChain.doFilter(request, httpSeveletResponse);
