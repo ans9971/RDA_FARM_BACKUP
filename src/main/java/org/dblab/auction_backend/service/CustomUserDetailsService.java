@@ -47,7 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             System.out.println("토큰이 같지 않음!");
             throw new UsernameNotFoundException("User not authorized.");
         }
-
+        //이메일 토큰 검증 부분
         return farmMemberDTO;
     }
    
